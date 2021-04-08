@@ -13,7 +13,6 @@ from aiohttp import web
 from aiortc import RTCPeerConnection, RTCSessionDescription
 from aiortc.contrib.media import MediaPlayer, MediaRelay
 
-ROOT = os.path.dirname(__file__)
 from aiortc import (
     RTCIceCandidate,
     RTCPeerConnection,
@@ -28,6 +27,7 @@ from av.video import VideoFrame
 import av
 
 import cv2
+ROOT = os.path.dirname(__file__)
 PHOTO_PATH = os.path.join(ROOT, "photo.jpg")
 
 import time
@@ -46,28 +46,26 @@ class VideoImageTrack(VideoStreamTrack):
         self._start = None
 
         self.img = cv2.imread(PHOTO_PATH, cv2.IMREAD_COLOR)
-
         self.frame = VideoFrame.from_ndarray(self.img, format="bgr24")
-        self.image_rootdir = r'D:\datasets\coco\images\train2014'
-        self.image_list = os.listdir(self.image_rootdir)
-        self.counter = 0
+
+        # self.image_rootdir = r'D:\datasets\coco\images\train2014'
+        # self.image_list = os.listdir(self.image_rootdir)
+        # self.counter = 0
 
     async def recv(self):
         pts, time_base = await self.next_timestamp()
-        # time.sleep(0.01)
-        image = cv2.imread(os.path.join(self.image_rootdir, self.image_list[self.counter]))
-        self.counter +=1
-        if self.counter >= len(self.image_list): self.counter = 0
-        # self.img = image
-        self.img = cv2.resize(image, (960, 540))
+
+        # image = cv2.imread(os.path.join(self.image_rootdir, self.image_list[self.counter]))
+        # self.counter +=1
+        # if self.counter >= len(self.image_list): self.counter = 0
+        # self.img = cv2.resize(image, (960, 540))
 
         img = self.img
-        # rotate image
-        rows, cols, _ = self.img.shape
-        # M = cv2.getRotationMatrix2D((cols / 2, rows / 2), int(pts * time_base * 45), 1)
-        # img = cv2.warpAffine(self.img, M, (cols, rows))
 
-        # create video frame
+        rows, cols, _ = self.img.shape
+        M = cv2.getRotationMatrix2D((cols / 2, rows / 2), int(pts * time_base * 45), 1)
+        img = cv2.warpAffine(self.img, M, (cols, rows))
+
         frame = VideoFrame.from_ndarray(img, format="bgr24")
         frame.pts = pts
         frame.time_base = time_base
@@ -155,7 +153,7 @@ async def offer(request):
             pcs.discard(pc)
 
     # open media source
-    audio, video = create_local_tracks(args.play_from)
+    # audio, video = create_local_tracks(args.play_from)
 
     # videoc = generate_video()
 
