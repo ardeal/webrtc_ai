@@ -6,6 +6,11 @@ This example illustrates how to enconde images processed by GPU and send video s
 # Motivation
 
 see the following picture.
+
+<p align="left">
+<img src="https://github.com/ardeal/webrtc_ai/blob/master/solutions.PNG" alt="AI Gui solutions" width="1024px">  
+</p>
+
 * solution 1: is the traditonal solution which is used when AI algorithms could be run on GPU. in this case, both client GUi and algorithms are both run on CPU.
 * solution 2: is the latest requirement. the latest algorithms based on deep learning could only be run one GPU. however, not all computer has GPU. so solution 1 is not appropriate for the latest requirement.
 * solution 3: C++ client GUI is running on CPU computer, but the algorithms is running on remote GPU computer. This sotion is good, but less better than solution 4.
