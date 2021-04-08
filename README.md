@@ -32,8 +32,8 @@ pip install websockets
 
 
 # Explanation of the code
-Pay attion on the code in webcamp.py file.
-1) Code from line 35 to 73 in webcam.py file defines the stream class which prepare video stream that will be send to browser.
+Pay attention to the code in webcamp.py file.
+1) Code from line 35 to 73 in webcam.py file defines the stream class which prepares video stream that will be sent to browser.
 2) If you would like to send your own images to browser, comment out code between line 48 to 49 and 65 to 67, and uncomment the code between line 51 to 53 and 58 to 61. in addition, you should replace line 51 with your own image folder.
 3) understand the code between line 161 to 168.
 
